@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using GIWA_API1.Data;
 
 namespace GIWA_API1
 {
@@ -25,6 +27,9 @@ namespace GIWA_API1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<GIWA_API1Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("GIWA_API1Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,15 @@ namespace GIWA_API1
             {
                 endpoints.MapControllers();
             });
+
+            using (var serviceScope =
+app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<GIWA_API1Context>();
+                ///context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+            }
+
         }
     }
 }
