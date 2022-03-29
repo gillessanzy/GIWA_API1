@@ -61,7 +61,7 @@ jobs:
     - name: upload artifact for deployement job
       uses: actions/upload-artifact@v3
       with:
-        name: .app-app
+        name: .net-app
         path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
