@@ -23,8 +23,6 @@ jobs:
       run: dotnet add package Microsoft.EntityFrameworkCore.SQLserver -v 3.1.21
     - name: Intall EntityFrameworkCore.Tool
       run: dotnet add package Microsoft.EntityFrameworkCore.Tools -v 3.1.21
-    - name: Install VisualStudio.Web.CodeGeneration.Design
-      run: dotnet add Microsoft.VisualStudio.Web.CodeGeneration.Design -v 3.1.5
     - name: Build
       run: dotnet build --no-restore
     - name: Test
