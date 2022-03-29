@@ -43,7 +43,7 @@ jobs:
         dotnet-version: 3.1.x
         
     - name: Install EntityFrameworkCore.InMemory
-      run: dotnet add package Microsoft.EntityFrameworkCore.InMemory -v 3.1.23
+      run: dotnet add package Microsoft.EntityFrameworkCore.InMemory -v 3.1.21
     - name: Install EntityFramewoekCore.SqlServer
       run: dotnet add package Microsoft.EntityFrameworkCore.SQLserver -v 3.1.21
     - name: Intall EntityFrameworkCore.Tool
