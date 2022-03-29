@@ -41,16 +41,28 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 3.1.x
+        
     - name: Install EntityFrameworkCore.InMemory
       run: dotnet add package Microsoft.EntityFrameworkCore.InMemory -v 3.1.23
     - name: Install EntityFramewoekCore.SqlServer
       run: dotnet add package Microsoft.EntityFrameworkCore.SQLserver -v 3.1.21
     - name: Intall EntityFrameworkCore.Tool
       run: dotnet add package Microsoft.EntityFrameworkCore.Tools -v 3.1.21
+    
     - name: Build
       run: dotnet build --no-restore
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      
+    - name: dotnet publish
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+    
+    - name: upload artifact for deployement job
+      uses: actions/upload-artifact@v3
+      with:
+        name: .app-app
+        path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest
