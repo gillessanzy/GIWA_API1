@@ -1,0 +1,31 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 3.1.x
+    - name: Install EntityFrameworkCore.InMemory
+      run: dotnet add package Microsoft.EntityFrameworkCore.InMemory -v 3.1.23
+    - name: Install EntityFramewoekCore.SqlServer
+      run: dotnet add package Microsoft.EntityFrameworkCore.SQLserver -v 3.1.21
+    - name: Intall EntityFrameworkCore.Tools
+      run: dotnet add package Microsoft.EntityFrameworkCore.Tools -v 3.1.21
+    - name: Install VisualStudio.Web.CodeGeneration.Design
+      run: dotnet add Microsoft.VisualStudio.Web.CodeGeneration.Design -v 3.1.5
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
